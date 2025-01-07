@@ -1,10 +1,10 @@
 import { AddTaskModal } from "@/module/task/AddTaskModal";
 import TaskCard from "@/module/task/TaskCard";
 import { selectTasks } from "@/redux/features/Task/TaskSlice";
-import { useAppSelector } from "@/redux/hook";
+import { useAppSeletor } from "@/redux/hook";
 
 export default function Tasks() {
-  const tasks = useAppSelector(selectTasks);
+  const tasks = useAppSeletor(selectTasks);
 
   console.log("Tasks:", tasks); // Debugging tasks array
 

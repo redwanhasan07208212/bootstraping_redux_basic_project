@@ -42,19 +42,20 @@ export function AddTaskModal() {
   const form = useForm();
   const disPatch = useAppDispatch();
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
+    console.log(data);
     disPatch(addTask(data as ITask));
   };
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button>Add Task</Button> {/* Single child here */}
+        <Button>Add Task</Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
           <DialogTitle>Add Task</DialogTitle>
         </DialogHeader>
         <DialogDescription className="sr-only">
-          Fill up this form to add a task
+          Fill up this form for add task
         </DialogDescription>
         <Form {...form}>
           <form className="space-y-7" onSubmit={form.handleSubmit(onSubmit)}>
@@ -91,7 +92,6 @@ export function AddTaskModal() {
                   <Popover>
                     <PopoverTrigger asChild>
                       <FormControl>
-                        f
                         <Button
                           variant={"outline"}
                           className={cn(
