@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Button } from "@/components/ui/button";
 import { Calendar } from "@/components/ui/calendar";
 import {
@@ -32,32 +31,36 @@ import {
 } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
 import { cn } from "@/lib/utils";
+import { addTask } from "@/redux/features/Task/TaskSlice";
+import { useAppDispatch } from "@/redux/hook";
+import { ITask } from "@/types";
 import { format } from "date-fns";
 import { CalendarIcon } from "lucide-react";
-import { useForm } from "react-hook-form";
+import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 
 export function AddTaskModal() {
   const form = useForm();
-  const onSubmit = (data: any) => {
-    console.log(data);
+  const disPatch = useAppDispatch();
+  const onSubmit: SubmitHandler<FieldValues> = (data) => {
+    disPatch(addTask(data as ITask));
   };
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button>Add Task</Button>
+        <Button>Add Task</Button> {/* Single child here */}
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
           <DialogTitle>Add Task</DialogTitle>
         </DialogHeader>
         <DialogDescription className="sr-only">
-          Fill up this form for add task
+          Fill up this form to add a task
         </DialogDescription>
         <Form {...form}>
           <form className="space-y-7" onSubmit={form.handleSubmit(onSubmit)}>
             <FormField
               control={form.control}
-              name="Title"
+              name="title"
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Title</FormLabel>
@@ -69,7 +72,7 @@ export function AddTaskModal() {
             />
             <FormField
               control={form.control}
-              name="Desciption"
+              name="description"
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Desciption</FormLabel>
@@ -88,6 +91,7 @@ export function AddTaskModal() {
                   <Popover>
                     <PopoverTrigger asChild>
                       <FormControl>
+                        f
                         <Button
                           variant={"outline"}
                           className={cn(
