@@ -6,3 +6,8 @@ export interface ITask {
   dueDate: Date | null;
   isCompleted: boolean;
 }
+
+export interface User {
+  id: string;
+  name: string;
+}

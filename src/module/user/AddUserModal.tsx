@@ -2,16 +2,33 @@ import { Button } from "@/components/ui/button";
 import {
   Dialog,
   DialogContent,
+  DialogDescription,
   DialogFooter,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+} from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
+import { addUser } from "@/redux/features/User/UserSlice";
+import { useAppDispatch } from "@/redux/hook";
+import { User } from "@/types";
+import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import { FaPlus } from "react-icons/fa6";
 
 export default function AddUserModal() {
+  const form = useForm();
+  const disPatch = useAppDispatch();
+  const onSubmit: SubmitHandler<FieldValues> = (data) => {
+    console.log(data);
+    disPatch(addUser(data as User));
+  };
   return (
     <div>
       <Dialog>
@@ -24,17 +41,29 @@ export default function AddUserModal() {
           <DialogHeader>
             <DialogTitle>User Detail</DialogTitle>
           </DialogHeader>
-          <div className="grid gap-4 py-4">
-            <div className="grid grid-cols-4 items-center gap-4">
-              <Label htmlFor="name" className="text-right">
-                Name
-              </Label>
-              <Input id="name" value="Pedro Duarte" className="col-span-3" />
-            </div>
-          </div>
-          <DialogFooter>
-            <Button type="submit">Submit</Button>
-          </DialogFooter>
+          <DialogDescription className="sr-only">
+            Fill up this form for user task
+          </DialogDescription>
+          <Form {...form}>
+            <form className="space-y-7" onSubmit={form.handleSubmit(onSubmit)}>
+              <FormField
+                control={form.control}
+                name="name"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Name</FormLabel>
+                    <FormControl>
+                      <Input {...field} value={field.value || ""} />
+                    </FormControl>
+                  </FormItem>
+                )}
+              />
+
+              <DialogFooter>
+                <Button type="submit">Submit</Button>
+              </DialogFooter>
+            </form>
+          </Form>
         </DialogContent>
       </Dialog>
     </div>
