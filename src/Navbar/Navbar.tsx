@@ -8,7 +8,7 @@ export default function Navbar() {
         <img src={Logo} alt="" />
       </div>
       <div className="flex gap-5">
-        <Link to="tasks">Tasks</Link>
+        <Link to="/">Tasks</Link>
         <Link to="users">Users</Link>
         <Link to="login">Login</Link>
       </div>
