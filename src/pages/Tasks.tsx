@@ -8,7 +8,7 @@ export default function Tasks() {
   const tasks = useAppSeletor(selectTasks);
   const disPatch = useAppDispatch();
 
-  console.log("Tasks:", tasks); // Debugging tasks array
+ // console.log("Tasks:", tasks); // Debugging tasks array
 
   return (
     <div className="mx-auto max-w-7xl px-5 mt-20">

@@ -42,7 +42,7 @@ export function AddTaskModal() {
   const form = useForm();
   const disPatch = useAppDispatch();
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
-    console.log(data);
+    //console.log(data);
     disPatch(addTask(data as ITask));
   };
   return (

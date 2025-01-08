@@ -1,0 +1,42 @@
+import { Button } from "@/components/ui/button";
+import {
+  Dialog,
+  DialogContent,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { FaPlus } from "react-icons/fa6";
+
+export default function AddUserModal() {
+  return (
+    <div>
+      <Dialog>
+        <DialogTrigger asChild>
+          <Button variant="outline" className="bg-green-500 text-black">
+            Add User <FaPlus />
+          </Button>
+        </DialogTrigger>
+        <DialogContent className="sm:max-w-[425px]">
+          <DialogHeader>
+            <DialogTitle>User Detail</DialogTitle>
+          </DialogHeader>
+          <div className="grid gap-4 py-4">
+            <div className="grid grid-cols-4 items-center gap-4">
+              <Label htmlFor="name" className="text-right">
+                Name
+              </Label>
+              <Input id="name" value="Pedro Duarte" className="col-span-3" />
+            </div>
+          </div>
+          <DialogFooter>
+            <Button type="submit">Submit</Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+    </div>
+  );
+}
