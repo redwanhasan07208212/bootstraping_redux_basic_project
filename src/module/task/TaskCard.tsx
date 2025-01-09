@@ -5,7 +5,8 @@ import {
   deleteTask,
   toogleCompleteState,
 } from "@/redux/features/Task/TaskSlice";
-import { useAppDispatch } from "@/redux/hook";
+import { selectUser } from "@/redux/features/User/UserSlice";
+import { useAppDispatch, useAppSeletor } from "@/redux/hook";
 import { ITask } from "@/types";
 import { Trash2 } from "lucide-react";
 
@@ -16,6 +17,10 @@ interface Iprops {
 export default function TaskCard({ task }: Iprops) {
   // console.log("Rendering TaskCard:", task); // Debugging task props
   const dispatch = useAppDispatch();
+  const users = useAppSeletor(selectUser);
+  console.log(users);
+  const assignedUser = users.find((user) => user.id === task.assignedTo);
+  console.log(assignedUser);
   return (
     <div className="border px-5 py-3 rounded-md">
       <div className="flex justify-between items-center">
@@ -43,6 +48,10 @@ export default function TaskCard({ task }: Iprops) {
       <div className="flex items-center gap-2 mt-5">
         <div className={cn("size-3 rounded-full bg-emerald-800")}></div>
         <p className=" text-left">{task.description}</p>
+      </div>
+      <div className="flex items-center gap-2 mt-5">
+        <div className={cn("size-3 rounded-full bg-emerald-800")}></div>
+        <p>Assigned To: {assignedUser ? assignedUser.name : "No one"}</p>
       </div>
     </div>
   );
