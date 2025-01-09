@@ -31,6 +31,7 @@ import {
 } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
 import { cn } from "@/lib/utils";
+import { useCreateTasksMutation } from "@/redux/Api/BaseApi";
 import { addTask } from "@/redux/features/Task/TaskSlice";
 import { selectUser } from "@/redux/features/User/UserSlice";
 import { useAppDispatch, useAppSeletor } from "@/redux/hook";
@@ -45,8 +46,17 @@ export function AddTaskModal() {
   const users = useAppSeletor(selectUser);
   const form = useForm();
   const disPatch = useAppDispatch();
-  const onSubmit: SubmitHandler<FieldValues> = (data) => {
+  const [createTask, { data, isLoading, isError }] = useCreateTasksMutation();
+  const onSubmit: SubmitHandler<FieldValues> = async (data) => {
     //console.log(data);
+    const taskData = {
+      ...data,
+      isCompleted: false,
+    };
+
+    const res = await createTask(taskData).unwrap();
+    console.log("Inside submit Function", res);
+
     disPatch(addTask(data as ITask));
     setOpen(false);
     form.reset();

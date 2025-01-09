@@ -1,6 +1,7 @@
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { AddTaskModal } from "@/module/task/AddTaskModal";
 import TaskCard from "@/module/task/TaskCard";
+import { useGetTasksQuery } from "@/redux/Api/BaseApi";
 import { selectTasks, updateTask } from "@/redux/features/Task/TaskSlice";
 import { useAppDispatch, useAppSeletor } from "@/redux/hook";
 
@@ -8,7 +9,14 @@ export default function Tasks() {
   const tasks = useAppSeletor(selectTasks);
   const disPatch = useAppDispatch();
 
- // console.log("Tasks:", tasks); // Debugging tasks array
+  const { data, isLoading } = useGetTasksQuery(undefined, {
+    pollingInterval: 10000,
+    refetchOnFocus: true,
+    refetchOnReconnect: true,
+    refetchOnMountOrArgChange: true,
+  });
+  // console.log(data, isLoading);
+  // console.log("Tasks:", tasks); // Debugging tasks array
 
   return (
     <div className="mx-auto max-w-7xl px-5 mt-20">
