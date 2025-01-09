@@ -18,9 +18,7 @@ export default function TaskCard({ task }: Iprops) {
   // console.log("Rendering TaskCard:", task); // Debugging task props
   const dispatch = useAppDispatch();
   const users = useAppSeletor(selectUser);
-  console.log(users);
   const assignedUser = users.find((user) => user.id === task.assignedTo);
-  console.log(assignedUser);
   return (
     <div className="border px-5 py-3 rounded-md">
       <div className="flex justify-between items-center">
